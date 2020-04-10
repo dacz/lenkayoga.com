@@ -4,170 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <title>Lenka Yoga</title>
+    <link type="text/css" href="/style.css" media="all" rel="stylesheet">
     <meta name="description" content="Yoga with Lenka" />
     <meta name="keywords" content="yoga, joga, classes, class, lekce" />
     <meta name="author" content="Lenka Nezvalova" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="format-detection" content="telephone=no">
-    <style type="text/css">
-        :root {
-            --mainFont: Tahoma, helvetica, arial, sans-serif;
-            --baseFontSize: 18px;
-            --baseLineHeight: 1.8;
-            --smallerFontSize: 0.75em;
-            --maxWidth: 40em;
-            --bgColor: #f8f8f4;
-            --mainColor: #222222;
-            --subtleColor: #888888;
-        }
-
-        html {
-            box-sizing: border-box;
-            font-size: var(--baseFontSize);
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit;
-        }
-
-        a,
-        a:visited {
-            color: var(--mainColor);
-        }
-
-        p {
-            margin: 0;
-            padding: 0;
-        }
-
-        .inone {
-            white-space: nowrap;
-        }
-
-        body {
-            font-family: var(--mainFont);
-            margin: 0;
-            padding: 0;
-            line-height: var(--baseLineHeight);
-            background-color: var(--bgColor);
-            color: var(--mainColor);
-        }
-
-        .page {
-            max-width: var(--maxWidth);
-            margin: 0 auto;
-            text-align: center;
-            padding: 0 1rem;
-        }
-
-        /*  -------------  */
-        .intro {
-            padding-top: 4rem;
-            padding-bottom: 1.5rem;
-            background: rgb(255, 255, 247);
-            background: linear-gradient(0deg, rgba(255, 255, 247, 1) 0%, rgba(255, 255, 220, 1) 100%);
-        }
-
-        .you-have span {
-            text-decoration: none;
-            padding-left: 0.15rem;
-            padding-right: 0.15rem;
-        }
-
-        span.awesome {
-            background-color: var(--grass);
-        }
-
-        span.wow {
-            background-color: rgb(255, 255, 179);
-        }
-
-        span.booo {
-            background-color: rgb(247, 205, 204);
-        }
-
-        span.great {
-            background-color: var(--clouds);
-        }
-
-        /*  -------------  */
-        .what {
-            background: var(--clouds);
-            background: linear-gradient(180deg, rgba(243, 252, 255, 1) 0%, var(--clouds) 4%, rgba(209, 244, 255, 1) 59%, rgba(209, 244, 255, 1) 90%, rgba(188, 239, 255, 1) 100%);
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--mainFont);
-            font-size: 1.2rem;
-            margin: 0;
-            padding: 0;
-            line-height: 1.45;
-        }
-
-        h1 span {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        /*  -------------  */
-        .passion {
-            padding-top: 2rem;
-            padding-bottom: 4rem;
-            background: var(--grass);
-            background: linear-gradient(180deg, rgba(207, 255, 207, 1) 0%, var(--grass) 4%, rgba(234, 255, 234, 1) 80%, rgba(248, 248, 248, 1) 100%);
-        }
-
-        .i-am {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            font-weight: bold;
-        }
-
-        .my-links {
-            margin-top: 0;
-            padding-top: 0;
-            font-size: var(--smallerFontSize);
-            color: var(--semiSubtleColor);
-        }
-
-        .my-links a {
-            color: var(--semiSubtleColor);
-        }
-
-        /*  -------------  */
-        .touch {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-            font-size: var(--smallerFontSize);
-            color: var(--semiSubtleColor);
-        }
-
-        .name {
-            font-weight: bold;
-        }
-
-        .legal {
-            color: var(--subtleColor);
-        }
-
-        /*  -------------  */
-        footer div {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            font-size: 0.8em;
-            color: var(--subtleColor);
-        }
-
-        footer a,
-        footer a:visited {
-            color: var(--subtleColor);
-        }
-    </style>
+    <script src="https://js.stripe.com/v3"></script>
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
@@ -202,12 +46,55 @@
 </head>
 
 <body>
-    <h1>Lenka Yoga</h1>
+    <div class="box">
+        <img src="lenkayoga_web_res.jpg" title="Lenka">
+        <h1>Lenka Yoga</h1>
+        <div class="content">
+            <p>
+                <a href="Pripojeni_k_zoom.pdf" title="jak se připojit na lekci">Informace o tom, jak
+                    se připojit na lekci…</a>
+            </p>
+            <p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSek6fZqVHbJmTmf_KiCPQBCIkTIVSOJQgmsH7_YJ23UH2LXuA/viewform?vc=0&c=0&w=1&usp=mail_form_link"
+                    target="_blank" title="přihlášky na online lekce">Přihlášky na online lekce…</a>
+            </p>
+            <p>
+                <button
+                    style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+                    id="checkout-button-sku_H4bhY3Iacwurkc" role="link"> Zaplatit za online lekci
+                </button>
+            </p>
+        </div>
+    </div>
     <footer class="page">
         <div>No cookies here, no tracking. I like privacy. Content is created with <a
                 href="https://creativecommons.org/licenses/by/4.0/"
                 title="Creative Common BY license">cc-by license</a>. </div>
     </footer>
+    <script>
+        (function () {
+            var stripe = Stripe('pk_live_Z8TdtunwZ1LiCCSRT2NvkrVr00oet6AjCY');
+
+            var checkoutButton = document.getElementById('checkout-button-sku_H4bhY3Iacwurkc');
+            checkoutButton.addEventListener('click', function () {
+                // When the customer clicks on the button, redirect
+                // them to Checkout.
+                stripe.redirectToCheckout({
+                    items: [{ sku: 'sku_H4bhY3Iacwurkc', quantity: 1 }],
+                    successUrl: 'https://lenkayoga.com/success.html',
+                    cancelUrl: 'https://lenkayoga.com/canceled.html',
+                })
+                    .then(function (result) {
+                        if (result.error) {
+                            // If `redirectToCheckout` fails due to a browser or network
+                            // error, display the localized error message to your customer.
+                            var displayError = document.getElementById('error-message');
+                            displayError.textContent = result.error.message;
+                        }
+                    });
+            });
+        })();
+    </script>
 </body>
 
 </html>
