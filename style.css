@@ -33,7 +33,7 @@ body {
     font-family: var(--mainFont);
     margin: 0;
     line-height: var(--baseLineHeight);
-    background-color: var(--bgColor);
+    background-color: var(--colored);
     color: var(--mainColor);
     padding: 2rem 1rem 1rem 1rem;
     color: var(--mainColor);
