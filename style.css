@@ -105,6 +105,16 @@ button:hover {
     background-color: var(--coloredFullOver);
 }
 
+.accountpay {
+    display: block;
+    padding-top: 0.3rem;
+    font-size: 0.8rem;
+}
+
+.nobr {
+    white-space: nowrap;
+}
+
 /*  -------------  */
 .name {
     font-weight: bold;
