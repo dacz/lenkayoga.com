@@ -38,6 +38,10 @@
             var d = "lenka.yoga"
             document.location = `${a}${b}${d}${String.fromCharCode(65 - 1)}lenkayo${c}om`;
         }
+        function qrit() {
+            var el = document.getElementById("qr");
+            el.style.display = el.style.display == "none" ? "block" : "none";
+        }
     </script>
 </head>
 
@@ -57,8 +61,13 @@
                 <button id="checkout-button-sku_H4bhY3Iacwurkc" role="link"> Zaplatit za online
                     lekci kartou</button>
                 <span class="accountpay">nebo převodem na účet: <span class="nobr">211111122 /
-                        0300</span></span>
+                        0300</span><br>(<a href="#" onClick="qrit()" title="QR platba">QR
+                        platba</a>)</span>
             </p>
+            <div id="qr">
+                <img src="qrplatba.png" title="QR platba">
+                <span class="accountpay">Prosím vyplňte Vaše jméno do poznámky k platbě</span>
+            </div>
         </div>
     </div>
     <footer class="page">

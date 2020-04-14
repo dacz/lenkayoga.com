@@ -115,6 +115,18 @@ button:hover {
     white-space: nowrap;
 }
 
+#qr {
+    display: none;
+    /* max-width: 250px;
+    margin: 0 auto; */
+}
+
+#qr img {
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto;
+}
+
 /*  -------------  */
 .name {
     font-weight: bold;
