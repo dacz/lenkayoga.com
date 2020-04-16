@@ -81,6 +81,24 @@ h1 {
     font-size: 0.8rem;
 }
 
+.langs a {
+    text-decoration: none;
+    color: var(--subtleColor);
+}
+
+.langs img {
+    border: 1px solid #dddddd;
+    width: 20px;
+    margin-right: 6px;
+    border-radius: 0;
+    margin-bottom: 1px;
+    vertical-align: text-bottom;
+}
+
+.langs img.eng {
+    margin-bottom: 2px;
+}
+
 p {
     margin: 0;
     padding: 1rem;
