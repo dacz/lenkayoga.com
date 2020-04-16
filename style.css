@@ -56,12 +56,11 @@ body {
 
 h1 {
     font-family: var(--mainFont);
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin: 0;
     padding: 1rem;
     text-align: center;
     font-weight: 500;
-    letter-spacing: 0.03rem;
     line-height: 1.45;
     color: var(--hColor);
 }
@@ -69,6 +68,16 @@ h1 {
 .navi {
     text-align: left;
     padding: 0.6rem;
+    font-size: 0.8rem;
+}
+
+.navi a {
+    text-decoration: none;
+    color: var(--subtleColor);
+}
+
+.langs {
+    text-align: center;
     font-size: 0.8rem;
 }
 
