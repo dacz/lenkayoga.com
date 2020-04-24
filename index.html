@@ -31,6 +31,8 @@
       }
     </script>
     <script type="text/javascript">
+        var qty = 1
+        var word = "lekci"
         function openit() {
             var a = "ma"
             var b = "ilto:"
@@ -41,6 +43,32 @@
         function qrit() {
             var el = document.getElementById("qr");
             el.style.display = el.style.display == "none" ? "block" : "none";
+        }
+
+        function changeQty(obj) {
+            let v = parseInt(obj.value, 10)
+            if (isNaN(v)) {
+                qty = 1
+            }
+            if (v < 1) {
+                qty = 1
+                document.getElementById("lessonsQuantity").value = "1"
+            }
+            if (v > 8) {
+                qty = 8
+                document.getElementById("lessonsQuantity").value = "8"
+            }
+            qty = v
+
+            if (qty == 1) {
+                word = "lekci"
+            } else if (qty > 1 && qty <= 4) {
+                word = "lekce"
+            } else {
+                word = "lekcí"
+            }
+
+            document.getElementById("lessonss").innerText = word
         }
     </script>
 </head>
@@ -60,16 +88,21 @@
             </p>
             <p>
                 <a href="tipy.html" title="Tipy na lekci">Pár tipů na lekci</a></p>
-            <p>
-                <button id="checkout-button-sku_H4bhY3Iacwurkc" role="link"> Zaplatit za online
-                    lekci kartou</button>
+            <div class="p">
+                <label for="lessonsQuantity">Lekcí</label>
+                <span>za </span>
+                <input type="number" name="quantity" value="1" id="lessonsQuantity" size="2" min="1"
+                    max="8" oninput="changeQty(this)">
+                <span id="lessonss">lekci</span>
+                <button id="checkout-button-sku_H4bhY3Iacwurkc" role="link">zaplatit kartou</button>
                 <span class="accountpay">nebo převodem na účet: <span class="nobr">211111122 /
                         0300</span><br>(<a href="#" onClick="qrit()" title="QR platba">QR
                         platba</a>)</span>
-            </p>
+            </div>
             <div id="qr" style="display:none">
                 <img src="qrplatba.png" title="QR platba">
-                <span class="accountpay">Prosím vyplňte Vaše jméno do poznámky k platbě</span>
+                <span class="accountpay">Prosím vyplňte Vaše jméno do poznámky k platbě a částku,
+                    pokud chcete platit více lekcí</span>
             </div>
         </div>
         <div class="langs"><a href="/index-en.html" title="In English"><img src="gb.svg"
@@ -89,8 +122,9 @@
             checkoutButton.addEventListener('click', function () {
                 // When the customer clicks on the button, redirect
                 // them to Checkout.
+
                 stripe.redirectToCheckout({
-                    items: [{ sku: 'sku_H4bhY3Iacwurkc', quantity: 1 }],
+                    items: [{ sku: 'sku_H4bhY3Iacwurkc', quantity: qty }],
                     successUrl: 'https://lenkayoga.com/success.html',
                     cancelUrl: 'https://lenkayoga.com/canceled.html',
                 })
