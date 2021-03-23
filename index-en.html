@@ -31,8 +31,19 @@
       }
     </script>
     <script type="text/javascript">
+        var prices = {
+            min90: 200,
+            min45: 100,
+        }
         var qty = 1
         var word = "lekci"
+        var typ = "min90"
+        // var sum = prices[typ] * qty
+
+        function updateSum() {
+            document.getElementById("summ").innerText = prices[typ] * qty + " CZK"
+        }
+
         function openit() {
             var a = "ma"
             var b = "ilto:"
@@ -40,9 +51,11 @@
             var d = "lenka.yoga"
             document.location = `${a}${b}${d}${String.fromCharCode(65 - 1)}gma${c}om`;
         }
-        function qrit() {
-            var el = document.getElementById("qr");
-            el.style.display = el.style.display == "none" ? "block" : "none";
+
+        function changeType(obj) {
+            typ = obj.value
+            updateSum()
+            console.log('OBJVALUE', typ);
         }
 
         function changeQty(obj) {
@@ -66,6 +79,7 @@
                 word = "lessons"
             }
 
+            updateSum()
             document.getElementById("lessonss").innerText = word
         }
     </script>
@@ -83,29 +97,39 @@
                     class</strong>
             </p>
             <p>
-                <a href="how-en.html" title="How to join class">How to join</a> my yoga class </p>
+                <a href="how-en.html" title="How to join class">How to join</a> my yoga class
+            </p>
             <p>
                 <a href="recommendations.html"
-                    title="Recommendations for the class">Recommendations</a></p>
-            <div class="p">
-                <label for="lessonsQuantity">Lessons</label>
-                <input type="number" name="quantity" value="1" id="lessonsQuantity" size="2" min="1"
-                    max="8" oninput="changeQty(this)">
-                <span id="lessonss">lesson</span>
-                <button id="checkout-button-sku_H4bhY3Iacwurkc" role="link">purchase by
-                    card</button>
-                <span class="accountpay">or wire transfer to my account: <span
-                        class="nobr">211111122 / 0300</span><br>(<a href="#" onClick="qrit()"
-                        title="QR platba">QR payment</a>)</span>
+                    title="Recommendations for the class">Recommendations</a>
+            </p>
+            <div class="p pay">
+                <div class="lekci">
+                    <input type="number" name="quantity" value="1" id="lessonsQuantity" size="2"
+                        min="1" max="8" oninput="changeQty(this)">
+                    <span id="lessonss">lesson</span>
+                </div>
+                <div class="typu">
+                    <div>
+                        <input type="radio" id="min90" name="typ" value="min90" checked
+                            onchange="changeType(this)">
+                        <label for="min90">90 minutes</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="min45" name="typ" value="min45"
+                            onchange="changeType(this)">
+                        <label for="min45">45 minutes</label>
+                    </div>
+                </div>
             </div>
-            <div id="qr" style="display:none">
-                <img src="qrplatba.png" title="QR platba">
-                <span class="accountpay">Please, fill in your name in the payment note and amount if
-                    you pay for more lessons</span>
-            </div>
+            <button id="checkout-button" role="link">purchase by card</button>
+            <span class="accountpay">or wire transfer <span id="summ"></span> to my account: <span
+                    class="nobr">211111122 / 0300</span><br />(please, fill in your name in the
+                payment note)</span>
         </div>
-        <div class="langs"><a href="/" title="Česky"><img src="cz.svg" title="Česky">Česká verze</a>
-        </div>
+    </div>
+    <div class="langs"><a href="/" title="Česky"><img src="cz.svg" title="Česky">Česká verze</a>
+    </div>
     </div>
     <footer class="page">
         <div>No cookies here, no tracking. I like privacy. Content is created with <a
@@ -113,27 +137,56 @@
                 title="Creative Common BY license">cc-by license</a>. </div>
     </footer>
     <script>
+        function buy90min(stripe) {
+            stripe.redirectToCheckout({
+                items: [{ sku: 'sku_H4bhY3Iacwurkc', quantity: qty }],
+                successUrl: 'https://lenkayoga.com/success.html',
+                cancelUrl: 'https://lenkayoga.com/canceled.html',
+            })
+                .then(function (result) {
+                    if (result.error) {
+                        var displayError = document.getElementById('error-message');
+                        displayError.textContent = result.error.message;
+                    }
+                });
+        }
+
+        function buy45min(stripe) {
+            stripe.redirectToCheckout({
+                lineItems: [{ price: 'price_1IXvIQJadppd9oFGFXsEVVdU', quantity: qty }],
+                mode: 'payment',
+                successUrl: 'https://lenkayoga.com/success',
+                cancelUrl: 'https://lenkayoga.com/canceled',
+            })
+                .then(function (result) {
+                    if (result.error) {
+                        var displayError = document.getElementById('error-message');
+                        displayError.textContent = result.error.message;
+                    }
+                });
+        }
+
+        function buy(stripe) {
+            return function () {
+                if (typ == "min90") {
+                    console.log('ABOUT TO BUY 90min');
+                    buy90min(stripe)
+                } else if (typ == "min45") {
+                    console.log('ABOUT TO BUY 45min');
+                    buy45min(stripe)
+                } else {
+                    console.log('WEIRD');
+                }
+            }
+        }
+
         (function () {
+            updateSum()
+
             var stripe = Stripe('pk_live_Z8TdtunwZ1LiCCSRT2NvkrVr00oet6AjCY');
 
-            var checkoutButton = document.getElementById('checkout-button-sku_H4bhY3Iacwurkc');
-            checkoutButton.addEventListener('click', function () {
-                // When the customer clicks on the button, redirect
-                // them to Checkout.
-                stripe.redirectToCheckout({
-                    items: [{ sku: 'sku_H4bhY3Iacwurkc', quantity: qty }],
-                    successUrl: 'https://lenkayoga.com/success.html',
-                    cancelUrl: 'https://lenkayoga.com/canceled.html',
-                })
-                    .then(function (result) {
-                        if (result.error) {
-                            // If `redirectToCheckout` fails due to a browser or network
-                            // error, display the localized error message to your customer.
-                            var displayError = document.getElementById('error-message');
-                            displayError.textContent = result.error.message;
-                        }
-                    });
-            });
+            var checkoutButton90 = document.getElementById('checkout-button');
+            checkoutButton90.addEventListener('click', buy(stripe));
         })();
     </script>
 </body>
